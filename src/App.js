@@ -9,13 +9,15 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.list = [{
-      task: 'a',
-      assignee: 'b',
-      date: 'c',
-      email: 'd'
-      //sample list
-    }]
+    this.state = {
+      list: [{
+        task: 'a',
+        assignee: 'b',
+        date: 'c',
+        email: 'd'
+        //sample list
+      }]
+    }
     this.sendMail = this.sendMail.bind(this)
     this.notification_sentMail = this.notification_sentMail.bind(this)
     this.notification_failMail = this.notification_failMail.bind(this)
@@ -28,7 +30,7 @@ class App extends Component {
       url: "/getAllTasks/",
       data: {},
       success: (info) => {
-        this.list = info
+        this.setState({ list: info })
       }
     });
   }
@@ -102,8 +104,8 @@ class App extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.list.length > 0 ? (
-                this.list.map((object, i) => {
+              {this.state.list.length > 0 ? (
+                this.state.list.map((object, i) => {
                   return <tr key={i}>
                     <th className="t-id" scope="row" row={i}>{object.task}</th>
                     <td>{object.assignee}</td>
